@@ -9,3 +9,5 @@ const commentSchema = new Schema(
     { timestamps: true
     }
 )
+
+export const CommentModel = model ("Comment", commentSchema);
