@@ -33,8 +33,10 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+    const { id } = req.params;
+    const { username, email, password, role, profile } = req.body;
     try {
-        const updateUser = await UserModel.findByIdAndUpdate(req.params.id, { username, email, password, role, profile }, { new: true });
+        const updateUser = await UserModel.findByIdAndUpdate(id,{ username, email, password, role, profile }, { new: true });
         res.status(200).json(updateUser);
     } catch (error) {
         res.status(500).json({ message: "Error al actualizar el usuario", error});
