@@ -8,10 +8,10 @@ export const validateArticle = [
         .notEmpty().withMessage('El contenido no pude estar vacio')
         .isLength({ min: 20 }).withMessage('El contenido debe tener al menos 20 caracteres'),
     body('exerpt')
+        .optional()
         .isLength({ max: 500 }).withMessage('El extracto no debe superar los 500 caracteres'),
     body('status')
         .isIn(['published', 'archived']).withMessage('Seleccione un estado valido (published, archived)'),
     body('author')
         .notEmpty().withMessage('El autor es obligatorio')
-
-]
+];
