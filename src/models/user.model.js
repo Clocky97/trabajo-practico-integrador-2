@@ -7,8 +7,8 @@ const userSchema = new Schema(
         password: { type: String, required: true },
         role: { type: String, enum: ['user', 'admin'], default: 'user' },
         profile: {
-            firstName: { type: String, minLength: 2 ,maxLength: 50},
-            lastName: { type: String, minLength: 2, maxLength: 50 },
+            firstName: { type: String, minLength: 2 ,maxLength: 50, required: true },
+            lastName: { type: String, minLength: 2, maxLength: 50, required: true },
             biography: { type: String, maxLength: 500, required: false },
             avatarUrl: { type: String, required: false, isUrl: true },
             bithDate: { type: Date, required: false}
