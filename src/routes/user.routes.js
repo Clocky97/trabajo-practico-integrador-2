@@ -9,6 +9,7 @@ import {
     deleteUser,
     updateUser
 } from "../controllers/user.controller.js";
+import { handleValidation } from "../middlewares/handle_validation.js";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.post("/login", login);
 // Rutas de usuario
 router.get("/user", auth, validateUser, getAllUsers);
 router.get("/user/:id", auth, validateUser, getUserById);
-router.post("/user", createUser, validateUser);
+router.post("/user", validateUser, handleValidation, createUser );
 router.put("/user/:id", auth, validateUser, updateUser);
 router.delete("/user/:id", auth, validateUser, deleteUser);
 

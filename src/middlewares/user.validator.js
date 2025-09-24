@@ -13,19 +13,19 @@ export const validateUser = [
         .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 carateres'),
     body('role')
         .isIn(['user', 'admin']).withMessage('Seleccione un rol valido (user, admin)'),
-    body('profile.*.firstname')
+    body('profile.firstName')
         .notEmpty().withMessage('Por favor ingrese su nombre')
         .isLength({ min: 2, max: 50 }).withMessage('El nombre deber tener de 2 a 50 caracteres'),
-    body('profile.*.lastname')
+    body('profile.lastName')
         .notEmpty().withMessage('Por favor ingrese su apellido')
         .isLength({ min: 2, max: 50 }).withMessage('El apellido deber tener de 2 a 50 caracteres'),
-    body('profile.*.biography')
+    body('profile.biography')
         .optional()
         .isLength({ max: 500 }).withMessage('La biografía no debe superar los 500 caracteres'),
-    body('profile.*.avatarUrl')
+    body('profile.avatarUrl')
         .optional()
         .isURL().withMessage('La URL del avatar no es válida'),
-    body('profile.*.birthDate')
+    body('profile.birthDate')
         .optional()
         .isDate().toDate().withMessage('La fecha de nacimiento no es válida'),
 ];
