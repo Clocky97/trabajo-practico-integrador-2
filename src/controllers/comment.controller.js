@@ -1,5 +1,7 @@
 import { CommentModel } from "../models/comment.model.js";
 
+//Obtener todos los comentarios
+
 export const getAllComments = async (req, res) => {
     try {
         const comments = await CommentModel.find().populate('author', 'username email').populate('article', 'title');
@@ -9,6 +11,8 @@ export const getAllComments = async (req, res) => {
     }
 };
 
+//Obtener comentario por ID
+
 export const getCommentById = async (req, res) => {
     const {id} = req.params;
     try {
@@ -17,6 +21,8 @@ export const getCommentById = async (req, res) => {
         res.status(500).json({ message: "Error al traer el comentario", error});
     }
 };
+
+//Crear comentario
 
 export const createComment = async (req, res) => {
     const { content, author, article } = req.body;
@@ -29,6 +35,8 @@ export const createComment = async (req, res) => {
     }
 }
 
+//Actualizar comentario
+
 export const updateComment = async (req, res) => {
     const {id} = req.params;
     const { content, author, article } = req.body;
@@ -39,6 +47,8 @@ export const updateComment = async (req, res) => {
         res.status(500).json({ message: "Error al actualizar el comentario", error});
     }
 }
+
+//Eliminar comentario
 
 export const deleteComment = async (req, res) => {
     const {id} = req.params;

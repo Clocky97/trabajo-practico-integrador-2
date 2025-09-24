@@ -1,5 +1,7 @@
 import { ArticleModel } from "../models/article.model.js";
 
+//Obtener todos los artículos
+
 export const getAllArticles = async (req, res) => {
     try {
         const articles = await ArticleModel.find().populate('author', 'username email')
@@ -8,6 +10,8 @@ export const getAllArticles = async (req, res) => {
         res.status(500).json({ message: "Error al traer los artículos", error});
     }
 };
+
+//Obtener artículo por ID
 
 export const getArticleById = async (req, res) => {
     const { id } = req.params;
@@ -21,6 +25,8 @@ export const getArticleById = async (req, res) => {
     }
 };
 
+//Crear artículo
+
 export const createArticle = async (req, res) => {
     const { title, content, excerpt, status, author, tags } = req.body;
     try {
@@ -29,6 +35,8 @@ export const createArticle = async (req, res) => {
         res.status(500).json({ message: "Error al crear el artículo", error})
     }
 };
+
+//Actualizar artículo
 
 export const updateArticle = async (req, res) => {
     const {id} = req.params;
@@ -40,6 +48,8 @@ export const updateArticle = async (req, res) => {
         res.status(500).json({ message: "Error al actualizar el artículo", error});
     }
 }
+
+//Eliminar artículo
 
 export const deleteArticle = async (req, res) => {
     const { id } = req.params;

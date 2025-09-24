@@ -8,6 +8,7 @@ const articleSchema = new Schema(
         status: { type: String, enum: ['published', 'archived'], default: 'published'},
         author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         tags: [{ type: String, required: false }],
+        deleted: { type: Boolean, default: false }
     },
     { timestamps: true
     }

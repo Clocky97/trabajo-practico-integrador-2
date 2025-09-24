@@ -1,5 +1,7 @@
 import UserModel from "../models/user.model.js";
 
+//Obtener todos los usuarios
+
 export const getAllUsers = async (req, res) => {
     try {
         const users = await UserModel.find();
@@ -8,6 +10,8 @@ export const getAllUsers = async (req, res) => {
         res.status(500).json({ message: "Error al traer los usuarios", error});
     }
 };
+
+//Obtener usuario por ID
 
 export const getUserById = async (req, res) => {
     const { id } = req.params;
@@ -21,6 +25,8 @@ export const getUserById = async (req, res) => {
     }
 };
 
+//Crear usuario
+
 export const createUser = async (req, res) => {
     const { username, email, password, role, profile } = req.body;
     try {
@@ -32,23 +38,28 @@ export const createUser = async (req, res) => {
     }
 };
 
+//Actualizar usuario
+
 export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, email, password, role, profile } = req.body;
     try {
-        const updateUser = await UserModel.findByIdAndUpdate(id,{ username, email, password, role, profile }, { new: true });
+        const updateUser = await UserModel.findOneAndUpdate(id,{ username, email, password, role, profile }, { new: true });
         res.status(200).json(updateUser);
     } catch (error) {
         res.status(500).json({ message: "Error al actualizar el usuario", error});
     }
 }
 
+//Eliminar usuario (soft delete)
+
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        await UserModel.findByIdAndDelete(id);
+        await UserModel.findByIdAndUpdate(id, { deleted: true });
         res.status(200).json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
         res.status(500).json({ message: "Error al eliminar el usuario", error});
     }
 };
+

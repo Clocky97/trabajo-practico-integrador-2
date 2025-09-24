@@ -2,6 +2,8 @@ import { hashedPassword, comparePassword } from "bcrypt.helper.js";
 import UserModel from "../models/user.model.js";
 import { generateToken } from "../helpers/jwt.helper.js";
 
+// Registro de usuario
+
 export const register = async (req, res) => {
     const { username, email, password, role, profile } = req.body;
     try {
@@ -13,6 +15,8 @@ export const register = async (req, res) => {
         res.status(500).json({ message: "Error al registrar el usuario", error});
     }
 };
+
+// Login de usuario
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
