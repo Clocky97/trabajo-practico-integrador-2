@@ -1,5 +1,5 @@
-import { hashedPassword, comparePassword } from "bcrypt.helper.js";
-import UserModel from "../models/user.model.js";
+import { hashPassword, comparePassword } from "../helpers/bcrypt.helper.js";
+import { UserModel } from "../models/user.model.js";
 import { generateToken } from "../helpers/jwt.helper.js";
 
 // Registro de usuario
@@ -7,7 +7,7 @@ import { generateToken } from "../helpers/jwt.helper.js";
 export const register = async (req, res) => {
     const { username, email, password, role, profile } = req.body;
     try {
-        const hashedPwd = await hashedPassword(password);
+        const hashedPwd = await hashPassword(password);
         const newUser = new UserModel({ username, email, password: hashedPwd, role, profile });
         await newUser.save();
         res.status(201).json(newUser);

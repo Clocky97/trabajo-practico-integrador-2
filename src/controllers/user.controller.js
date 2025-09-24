@@ -1,4 +1,4 @@
-import UserModel from "../models/user.model.js";
+import { UserModel } from "../models/user.model.js";
 
 //Obtener todos los usuarios
 
@@ -16,10 +16,11 @@ export const getAllUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await UserModel.findByID(id);
+        const user = await UserModel.findById(id);
         if (!user) {
-            return res.status(404).json({ message: "Ususario no encontrado" });
+            return res.status(404).json({ message: "Usuario no encontrado" });
         }
+        res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ message: "Error al traer el usuario", error});
     }
@@ -44,8 +45,11 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, email, password, role, profile } = req.body;
     try {
-        const updateUser = await UserModel.findOneAndUpdate(id,{ username, email, password, role, profile }, { new: true });
-        res.status(200).json(updateUser);
+        const updatedUser = await UserModel.findByIdAndUpdate(id, { username, email, password, role, profile }, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.status(200).json(updatedUser);
     } catch (error) {
         res.status(500).json({ message: "Error al actualizar el usuario", error});
     }

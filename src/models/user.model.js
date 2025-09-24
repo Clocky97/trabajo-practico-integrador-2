@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ArticleModel } from "./article.model";
+import { ArticleModel } from "./article.model.js";
 import { CommentModel } from "./comment.model.js";
 
 const userSchema = new Schema(
@@ -12,8 +12,8 @@ const userSchema = new Schema(
             firstName: { type: String, minLength: 2 ,maxLength: 50, required: true },
             lastName: { type: String, minLength: 2, maxLength: 50, required: true },
             biography: { type: String, maxLength: 500, required: false },
-            avatarUrl: { type: String, required: false, isUrl: true },
-            bithDate: { type: Date, required: false}
+            avatarUrl: { type: String, required: false },
+            birthDate: { type: Date, required: false }
         },
         deleted: { type: Boolean, default: false },
     },

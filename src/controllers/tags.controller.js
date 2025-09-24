@@ -1,4 +1,4 @@
-import TagModel from "../models/tags.model.js";
+import { TagModel } from "../models/tags.model.js";
 
 //Obtener todas las etiquetas
 

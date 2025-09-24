@@ -1,4 +1,7 @@
 import { Router } from "express";
+import { auth } from "../middlewares/auth.middleware.js";
+import { validateUser } from "../middlewares/user.validator.js";
+import { login, register } from "../controllers/auth.controller.js";
 import {
     getUserById,
     getAllUsers,
@@ -9,10 +12,16 @@ import {
 
 const router = Router();
 
-router.get("user", getAllUsers);
-router.get("user/:id", getUserById);
-router.post("user", createUser);
-router.put("user/:id", updateUser);
-router.delete("user/:id", deleteUser);
+
+// login y registro
+router.post("/register", validateUser, register);
+router.post("/login", login);
+
+// Rutas de usuario
+router.get("/user", auth, validateUser, getAllUsers);
+router.get("/user/:id", auth, validateUser, getUserById);
+router.post("/user", createUser, validateUser);
+router.put("/user/:id", auth, validateUser, updateUser);
+router.delete("/user/:id", auth, validateUser, deleteUser);
 
 export default router;

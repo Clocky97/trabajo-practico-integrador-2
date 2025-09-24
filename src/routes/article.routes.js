@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { auth } from "../middlewares/auth.middleware.js";
+import { validateArticle } from "../middlewares/article.validator.js";
 import {
     getArticleById,
     getAllArticles,
@@ -9,10 +11,10 @@ import {
 
 const router = Router();
 
-router.get("/article", getAllArticles);
-router.get("/article/:id", getArticleById);
-router.post("/article", createArticle);
-router.put("/article/:id", updateArticle);
-router.delete("/article/:id", deleteArticle);
+router.get("/article", auth, validateArticle, getAllArticles);
+router.get("/article/:id", auth, validateArticle, getArticleById);
+router.post("/article", auth, validateArticle, createArticle);
+router.put("/article/:id", auth, validateArticle, updateArticle);
+router.delete("/article/:id", auth, validateArticle, deleteArticle);
 
 export default router;

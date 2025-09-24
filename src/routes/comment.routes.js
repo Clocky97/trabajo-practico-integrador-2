@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { validateComment } from "../middlewares/comment.validator.js";
+import { auth } from "../middlewares/auth.middleware.js";
 import {
     getCommentById,
     getAllComments,
@@ -9,10 +11,10 @@ import {
 
 const router = Router();
 
-router.get("/comment", getAllComments);
-router.get("/comment/:id", getCommentById);
-router.post("/comment", createComment);
-router.put("/comment/:id", updateComment);
-router.delete("/comment/:id", deleteComment);
+router.get("/comment", auth, validateComment, getAllComments);
+router.get("/comment/:id", auth, validateComment, getCommentById);
+router.post("/comment", auth, validateComment, createComment);
+router.put("/comment/:id", auth, validateComment, updateComment);
+router.delete("/comment/:id", auth, validateComment, deleteComment);
 
 export default router;
