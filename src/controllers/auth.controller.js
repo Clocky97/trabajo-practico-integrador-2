@@ -35,3 +35,10 @@ export const login = async (req, res) => {
         res.status(500).json({ message: "Error al iniciar sesión", error});
     }
 };
+
+//logout
+
+export const logout = (req, res) => {
+    res.clearCookie("token");
+    return res.json({ message: "Logout exitoso" });
+};
