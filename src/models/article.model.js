@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { CommentModel } from "../models/comment.model.js"
 
 const articleSchema = new Schema(
     {
@@ -7,11 +8,22 @@ const articleSchema = new Schema(
         excerpt: { type: String, required: false, maxLength: 500 },
         status: { type: String, enum: ['published', 'archived'], default: 'published'},
         author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        tags: [{ type: String, required: false }],
+        tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
         deleted: { type: Boolean, default: false }
     },
     { timestamps: true
     }
 )
+
+//middleware para eliminar comentarios asociados al borrar un artículo
+
+articleSchema.pre(
+    'findByIdAndDelete', async function (next) {
+        const article = await this.model.findOne(this.getFilter());
+    if (article) {
+        await CommentModel.deleteMany({ article: article._id});
+        }
+        next();
+    });
 
 export const ArticleModel = model("Article", articleSchema);
