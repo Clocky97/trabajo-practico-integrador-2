@@ -15,6 +15,8 @@ const articleSchema = new Schema(
     }
 )
 
+//middleware para eliminar comentarios asociados al borrar un artículo
+
 articleSchema.pre(
     'findByIdAndDelete', async function (next) {
         const article = await this.model.findOne(this.getFilter());
